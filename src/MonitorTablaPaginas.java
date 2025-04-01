@@ -53,8 +53,6 @@ public class MonitorTablaPaginas
                 }
             }
         }
-
-        //actualizarClases();
     }
 
     public synchronized int sacarPagina()
@@ -150,8 +148,8 @@ public class MonitorTablaPaginas
                 }
                 else
                 {
-                    clase2++;
-                    tablaDePaginas.get(pagina)[1] = 0;
+                    clase4++;
+                    tablaDePaginas.get(pagina)[1] = 1;
                     tablaDePaginas.get(pagina)[2] = 1;
                 }
             }
@@ -166,8 +164,8 @@ public class MonitorTablaPaginas
                 }
                 else
                 {
-                    clase2++;
-                    tablaDePaginas.get(pagina)[1] = 0;
+                    clase4++;
+                    tablaDePaginas.get(pagina)[1] = 1;
                     tablaDePaginas.get(pagina)[2] = 1;
                 }
                 marcosRam ++;
@@ -201,24 +199,22 @@ public class MonitorTablaPaginas
                 if (tablaDePaginas.get(pagina)[1]==0 && tablaDePaginas.get(pagina)[2]==0)
                 {
                     clase1--;
-                    clase2++;
+                    clase4++;
                 }
                 else if (tablaDePaginas.get(pagina)[1]==1 && tablaDePaginas.get(pagina)[2]==0)
                 {
                     clase3--;
-                    clase2++;
+                    clase4++;
                 }
-                else if (tablaDePaginas.get(pagina)[1]==1 && tablaDePaginas.get(pagina)[2]==1)
+                else if (tablaDePaginas.get(pagina)[1]==0 && tablaDePaginas.get(pagina)[2]==1)
                 {
-                    clase4--;
-                    clase2++;
+                    clase2--;
+                    clase4++;
                 }
-                tablaDePaginas.get(pagina)[1] = 0;
+                tablaDePaginas.get(pagina)[1] = 1;
                 tablaDePaginas.get(pagina)[2] = 1;
             }
         }
-
-        //actualizarClases();
     }
 
     public int getMisses()
@@ -229,36 +225,6 @@ public class MonitorTablaPaginas
     public int getHits()
     {
         return hits;
-    }
-
-    public synchronized void actualizarClases()
-    {
-        clase1=0;
-        clase2=0;
-        clase3=0;
-        clase4=0;
-        for (int i = 0; i < tablaDePaginas.size(); i++)
-        {
-            if (tablaDePaginas.get(i)[0] != -1)
-            {
-                if (tablaDePaginas.get(i)[1] == 0 && tablaDePaginas.get(i)[2] == 0)
-                {
-                    clase1 ++;
-                }
-                else if (tablaDePaginas.get(i)[1] == 0 && tablaDePaginas.get(i)[2] == 1)
-                {
-                    clase2 ++;
-                }
-                else if (tablaDePaginas.get(i)[1] == 1 && tablaDePaginas.get(i)[2] == 0)
-                {
-                    clase3 ++;
-                }
-                else if (tablaDePaginas.get(i)[1] == 1 && tablaDePaginas.get(i)[2] == 1)
-                {
-                    clase4 ++;
-                }
-            }
-        }
     }
 
     public synchronized boolean getTerminar()
