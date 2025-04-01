@@ -25,8 +25,6 @@ public class MonitorTablaPaginas
         {
             int[] marco = new int[3];
             marco[0] = -1;
-            marco[1] = 0;
-            marco[2] = 0;
             tablaDePaginas.add(marco);
         }
     }
@@ -55,7 +53,7 @@ public class MonitorTablaPaginas
         }
     }
 
-    public synchronized int sacarPagina()
+    public Integer sacarPagina()
     {
         boolean sacada = false;
 
@@ -127,7 +125,7 @@ public class MonitorTablaPaginas
                 }
             }
         }
-        return 0;
+        return -1;
     }
 
     public synchronized void procesarReferencia(int pagina, String uso)

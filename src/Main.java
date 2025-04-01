@@ -44,11 +44,12 @@ public class Main
                 ArrayList<String> referencias = procesadorInformacion.extraerReferencias();
 
                 MonitorTablaPaginas monitorTablaPaginas = new MonitorTablaPaginas(marcos, paginas);
-                Actualizador actualizador = new Actualizador();
-                LectorReferencias lectorReferencias = new LectorReferencias(referencias);
 
                 Actualizador.inicializarMonitor(monitorTablaPaginas);
                 LectorReferencias.inicializarMonitor(monitorTablaPaginas);
+
+                Actualizador actualizador = new Actualizador();
+                LectorReferencias lectorReferencias = new LectorReferencias(referencias);
 
                 actualizador.start();
                 lectorReferencias.start();
