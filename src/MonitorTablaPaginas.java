@@ -37,11 +37,24 @@ public class MonitorTablaPaginas
         {
             if (tablaDePaginas.get(i)[0] != -1)
             {
-                tablaDePaginas.get(i)[1] = 0;
+                if (tablaDePaginas.get(i)[1]==1)
+                {
+                    tablaDePaginas.get(i)[1] = 0;
+                    if (tablaDePaginas.get(i)[2]==1)
+                    {
+                        clase4--;
+                        clase2++;
+                    }
+                    else
+                    {
+                        clase3--;
+                        clase1++;
+                    }
+                }
             }
         }
 
-        actualizarClases();
+        //actualizarClases();
     }
 
     public synchronized int sacarPagina()
@@ -57,6 +70,7 @@ public class MonitorTablaPaginas
                     if (tablaDePaginas.get(i)[1] == 0 && tablaDePaginas.get(i)[2] == 0)
                     {
                         int realPagina = tablaDePaginas.get(i)[0];
+                        clase1--;
                         tablaDePaginas.get(i)[0] = -1;
                         sacada=true;
                         return realPagina;
@@ -73,6 +87,7 @@ public class MonitorTablaPaginas
                     if (tablaDePaginas.get(i)[1] == 0 && tablaDePaginas.get(i)[2] == 1)
                     {
                         int realPagina = tablaDePaginas.get(i)[0];
+                        clase2--;
                         tablaDePaginas.get(i)[0] = -1;
                         sacada=true;
                         return realPagina;
@@ -89,6 +104,7 @@ public class MonitorTablaPaginas
                     if (tablaDePaginas.get(i)[1] == 1 && tablaDePaginas.get(i)[2] == 0)
                     {
                         int realPagina = tablaDePaginas.get(i)[0];
+                        clase3--;
                         tablaDePaginas.get(i)[0] = -1;
                         sacada=true;
                         return realPagina;
@@ -105,6 +121,7 @@ public class MonitorTablaPaginas
                     if (tablaDePaginas.get(i)[1] == 1 && tablaDePaginas.get(i)[2] == 1)
                     {
                         int realPagina = tablaDePaginas.get(i)[0];
+                        clase4--;
                         tablaDePaginas.get(i)[0] = -1;
                         sacada=true;
                         return realPagina;
@@ -127,11 +144,13 @@ public class MonitorTablaPaginas
                 tablaDePaginas.get(pagina)[0]=paginaRealDestino;
                 if (uso.equals("R"))
                 {
+                    clase3++;
                     tablaDePaginas.get(pagina)[1] = 1;
                     tablaDePaginas.get(pagina)[2] = 0;
                 }
                 else
                 {
+                    clase2++;
                     tablaDePaginas.get(pagina)[1] = 0;
                     tablaDePaginas.get(pagina)[2] = 1;
                 }
@@ -141,11 +160,13 @@ public class MonitorTablaPaginas
                 tablaDePaginas.get(pagina)[0] = marcosRam;
                 if (uso.equals("R"))
                 {
+                    clase3++;
                     tablaDePaginas.get(pagina)[1] = 1;
                     tablaDePaginas.get(pagina)[2] = 0;
                 }
                 else
                 {
+                    clase2++;
                     tablaDePaginas.get(pagina)[1] = 0;
                     tablaDePaginas.get(pagina)[2] = 1;
                 }
@@ -157,17 +178,47 @@ public class MonitorTablaPaginas
             hits ++;
             if (uso.equals("R"))
             {
+                if (tablaDePaginas.get(pagina)[1]==0 && tablaDePaginas.get(pagina)[2]==0)
+                {
+                    clase1--;
+                    clase3++;
+                }
+                else if (tablaDePaginas.get(pagina)[1]==0 && tablaDePaginas.get(pagina)[2]==1)
+                {
+                    clase2--;
+                    clase3++;
+                }
+                else if (tablaDePaginas.get(pagina)[1]==1 && tablaDePaginas.get(pagina)[2]==1)
+                {
+                    clase4--;
+                    clase3++;
+                }
                 tablaDePaginas.get(pagina)[1] = 1;
                 tablaDePaginas.get(pagina)[2] = 0;
             }
             else
             {
+                if (tablaDePaginas.get(pagina)[1]==0 && tablaDePaginas.get(pagina)[2]==0)
+                {
+                    clase1--;
+                    clase2++;
+                }
+                else if (tablaDePaginas.get(pagina)[1]==1 && tablaDePaginas.get(pagina)[2]==0)
+                {
+                    clase3--;
+                    clase2++;
+                }
+                else if (tablaDePaginas.get(pagina)[1]==1 && tablaDePaginas.get(pagina)[2]==1)
+                {
+                    clase4--;
+                    clase2++;
+                }
                 tablaDePaginas.get(pagina)[1] = 0;
                 tablaDePaginas.get(pagina)[2] = 1;
             }
         }
 
-        actualizarClases();
+        //actualizarClases();
     }
 
     public int getMisses()
