@@ -11,8 +11,7 @@ public class Main
             System.out.println("Elija una opción para ejecutar:");
             System.out.println("- 1) Opción 1 (generar referencias).");
             System.out.println("- 2) Opción 2 (calcular datos buscados).");
-            System.out.println("- 3) Aplicar filtro de Sobel.");
-            System.out.println("- 4) Salir.");
+            System.out.println("- 3) Salir.");
 
             Scanner scanner = new Scanner(System.in);
 
@@ -51,23 +50,12 @@ public class Main
                 Actualizador.inicializarMonitor(monitorTablaPaginas);
                 LectorReferencias.inicializarMonitor(monitorTablaPaginas);
 
-                lectorReferencias.start();
                 actualizador.start();
+                lectorReferencias.start();
 
                 lectorReferencias.join();
             }
             else if(opcion.equals("3"))
-            {
-                System.out.println("Ingrese el nombre del archivo con la imagen para aplicar el filtro de Sobel:");
-                String inputFile = scanner.nextLine();
-                String outputFilePath = "filtroSobel.bmp";
-                Imagen imagenIn = new Imagen(inputFile); 
-                Imagen imagenOut = new Imagen(inputFile); 
-                FiltroSobel fs = new FiltroSobel(imagenIn, imagenOut); 
-                fs.applySobel(); 
-                imagenOut.escribirImagen(outputFilePath); 
-            }
-            else if(opcion.equals("4"))
             {
                 terminar =true;
                 scanner.close();

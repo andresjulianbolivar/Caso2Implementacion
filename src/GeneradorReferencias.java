@@ -66,7 +66,7 @@ public class GeneradorReferencias
             }
         }
 
-        numeroReferencias = referencias.size();
+        numeroReferencias = (filasImagen-2)*(columnasImagen-2)*(3*3*9+3);
 
         try (FileWriter escritor = new FileWriter(outputFile))
         {
@@ -160,6 +160,6 @@ public class GeneradorReferencias
             }
         }
 
-        paginasVirtuales = pagina;
+        paginasVirtuales = pagina+1;
     }
 }
