@@ -6,6 +6,7 @@ public class MonitorTablaPaginas
     private int paginas;
     private int marcosRam = 0;
     private ArrayList<int[]> tablaDePaginas = new ArrayList<int[]>();
+    private int[] memoriaRam;
     private int misses = 0;
     private int hits = 0;
 
@@ -21,6 +22,12 @@ public class MonitorTablaPaginas
         this.marcos = marcos;
         this.paginas = paginas;
 
+        memoriaRam = new int[marcos];
+        for (int i=0; i<memoriaRam.length;i++)
+        {
+            memoriaRam[i] = -1;
+        }
+
         for (int i = 0; i<this.paginas; i++)
         {
             int[] marco = new int[3];
@@ -29,16 +36,16 @@ public class MonitorTablaPaginas
         }
     }
 
-    public synchronized void actualizarEstados()
+    public synchronized boolean actualizarEstados()
     {
-        for (int i = 0; i<tablaDePaginas.size();i++)
+        for (int i = 0; i<memoriaRam.length;i++)
         {
-            if (tablaDePaginas.get(i)[0] != -1)
+            int paginaVirtual = memoriaRam[i];
+            if (paginaVirtual!=-1)
             {
-                if (tablaDePaginas.get(i)[1]==1)
+                if (tablaDePaginas.get(paginaVirtual)[1]==1)
                 {
-                    tablaDePaginas.get(i)[1] = 0;
-                    if (tablaDePaginas.get(i)[2]==1)
+                    if (tablaDePaginas.get(paginaVirtual)[2]==1)
                     {
                         clase4--;
                         clase2++;
@@ -48,9 +55,11 @@ public class MonitorTablaPaginas
                         clase3--;
                         clase1++;
                     }
+                    tablaDePaginas.get(paginaVirtual)[1] = 0;
                 }
             }
         }
+        return terminar;
     }
 
     public Integer sacarPagina()
@@ -130,14 +139,14 @@ public class MonitorTablaPaginas
 
     public synchronized void procesarReferencia(int pagina, String uso)
     {
-        int[] marco = tablaDePaginas.get(pagina);
-        if (marco[0] == -1)
+        if (tablaDePaginas.get(pagina)[0] == -1)
         {
             misses ++;
             if (marcosRam == marcos)
             {
                 int paginaRealDestino = sacarPagina();
                 tablaDePaginas.get(pagina)[0]=paginaRealDestino;
+                memoriaRam[paginaRealDestino] = pagina;
                 if (uso.equals("R"))
                 {
                     clase3++;
@@ -154,6 +163,7 @@ public class MonitorTablaPaginas
             else
             {
                 tablaDePaginas.get(pagina)[0] = marcosRam;
+                memoriaRam[marcosRam] = pagina;
                 if (uso.equals("R"))
                 {
                     clase3++;
@@ -223,11 +233,6 @@ public class MonitorTablaPaginas
     public int getHits()
     {
         return hits;
-    }
-
-    public synchronized boolean getTerminar()
-    {
-        return terminar;
     }
 
     public synchronized void setTerminar()

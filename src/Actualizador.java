@@ -9,8 +9,10 @@ public class Actualizador extends Thread
 
     public void run()
     {
-        while(!monitor.getTerminar())
+        boolean terminar = false;
+        while(!terminar)
         {
+            terminar = monitor.actualizarEstados();
             try 
             {
                 Thread.sleep(1);
@@ -19,8 +21,6 @@ public class Actualizador extends Thread
             {
                 e.printStackTrace();
             }
-
-            monitor.actualizarEstados();
         }
     }
 }
