@@ -155,8 +155,8 @@ public class MonitorTablaPaginas
                 }
                 else
                 {
-                    clase4++;
-                    tablaDePaginas.get(pagina)[1] = 1;
+                    clase2++;
+                    tablaDePaginas.get(pagina)[1] = 0;
                     tablaDePaginas.get(pagina)[2] = 1;
                 }
             }
@@ -172,8 +172,8 @@ public class MonitorTablaPaginas
                 }
                 else
                 {
-                    clase4++;
-                    tablaDePaginas.get(pagina)[1] = 1;
+                    clase2++;
+                    tablaDePaginas.get(pagina)[1] = 0;
                     tablaDePaginas.get(pagina)[2] = 1;
                 }
                 marcosRam ++;
@@ -207,19 +207,19 @@ public class MonitorTablaPaginas
                 if (tablaDePaginas.get(pagina)[1]==0 && tablaDePaginas.get(pagina)[2]==0)
                 {
                     clase1--;
-                    clase4++;
+                    clase2++;
                 }
                 else if (tablaDePaginas.get(pagina)[1]==1 && tablaDePaginas.get(pagina)[2]==0)
                 {
                     clase3--;
-                    clase4++;
+                    clase2++;
                 }
-                else if (tablaDePaginas.get(pagina)[1]==0 && tablaDePaginas.get(pagina)[2]==1)
+                else if (tablaDePaginas.get(pagina)[1]==1 && tablaDePaginas.get(pagina)[2]==1)
                 {
-                    clase2--;
-                    clase4++;
+                    clase4--;
+                    clase2++;
                 }
-                tablaDePaginas.get(pagina)[1] = 1;
+                tablaDePaginas.get(pagina)[1] = 0;
                 tablaDePaginas.get(pagina)[2] = 1;
             }
         }
